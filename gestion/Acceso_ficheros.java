@@ -17,35 +17,35 @@ import usuarios.Propietario;
 import usuarios.Usuario;
 
 /**
- * Clase que contiene métodos relativos a la Entrada/Salida por medio de ficheros.
- * Estos ficheros están especificados por sus atributos, los cuales representan los nombres de los ficheros que se usarán.
- * Los nombres de ficheros usados en el programa son, por defecto: <b>tareas.txt</b>, <b>grupos.txt</b>, y por último,
- * un archivo adicional además de los indicados en la especificación del proyecto, <b>usuarios.txt</b>.<br>
+ * Clase que contiene mï¿½todos relativos a la Entrada/Salida por medio de ficheros.
+ * Estos ficheros estï¿½n especificados por sus atributos, los cuales representan los nombres de los ficheros que se usarï¿½n.
+ * Los nombres de ficheros usados en el programa son, por defecto: <b>tareas.txt</b>, <b>grupos.txt</b>, y por ï¿½ltimo,
+ * un archivo adicional ademï¿½s de los indicados en la especificaciï¿½n del proyecto, <b>usuarios.txt</b>.<br>
  * La sintaxis utilizada a la hora de leer los archivos, se considera correcta. Es la misma que se detalla
- * en la especificación del proyecto, y en el caso del fichero adicional que detalla los usuarios, su sintaxis
- * se explica en la documentación del método {@link #leerUsuarios()}.
+ * en la especificaciï¿½n del proyecto, y en el caso del fichero adicional que detalla los usuarios, su sintaxis
+ * se explica en la documentaciï¿½n del mï¿½todo {@link #leerUsuarios()}.
  * @author Jaime Alonso Lorenzo
  *
  */
 public class Acceso_ficheros {
 
 	/**
-	 * Nombre del fichero a partir del cual se leerán los usuarios.
+	 * Nombre del fichero a partir del cual se leerï¿½n los usuarios.
 	 */
 	private String usuarios;
 	
 	/**
-	 * Nombre del fichero a partir del cual se leerán los grupos.
+	 * Nombre del fichero a partir del cual se leerï¿½n los grupos.
 	 */
 	private String grupos;
 	
 	/**
-	 * Nombre del fichero a partir del cual se leerán las tareas.
+	 * Nombre del fichero a partir del cual se leerï¿½n las tareas.
 	 */
 	private String tareas;
 	
 	/**
-	 * Constructor de un objeto Acceso_ficheros según los nombres de los ficheros a los que accederá.
+	 * Constructor de un objeto Acceso_ficheros segï¿½n los nombres de los ficheros a los que accederï¿½.
 	 * @param usuarios Fichero de usuarios.
 	 * @param grupos Fichero de grupos.
 	 * @param tareas Fichero de tareas.
@@ -56,13 +56,13 @@ public class Acceso_ficheros {
 		this.tareas = tareas;
 	}
 	
-	//MÉTODOS DE LECTURA DE FICHEROS
+	//Mï¿½TODOS DE LECTURA DE FICHEROS
 	
 	/**
-	 * Método que lee una lista de Tareas del archivo especificado por {@link tareas}.
-	 * El convenio mediante el cual se leen es el explicado en la especificación del proyecto.
+	 * Mï¿½todo que lee una lista de Tareas del archivo especificado por {@link tareas}.
+	 * El convenio mediante el cual se leen es el explicado en la especificaciï¿½n del proyecto.
 	 * @param datos Los datos que se usan en el programa.
-	 * @return La lista de tareas leídas del fichero.
+	 * @return La lista de tareas leï¿½das del fichero.
 	 * @throws Exception Si no se encuentra el fichero especificado.
 	 */
 	public LinkedList<Tarea> leerTareas(Acceso_datos datos) throws Exception{
@@ -111,7 +111,14 @@ public class Acceso_ficheros {
 				lista.add(aux);
 			}
 			else if(tipo.equals("con_plazo")){
-				lista.add(new Tarea_con_plazo(descripcion, p, ID, pendiente, dependencias, prioridad, fecha));
+				try{
+					lista.add(new Tarea_con_plazo(descripcion, p, ID, pendiente, dependencias, prioridad, fecha));
+				}
+				catch(RuntimeException e){
+					Tarea_con_plazo aux = new Tarea_con_plazo(descripcion, p, ID, !pendiente, dependencias, prioridad, fecha);
+					aux.setPendiente(true);
+					lista.add(aux);
+				}
 			}
 		}
 		
@@ -119,9 +126,9 @@ public class Acceso_ficheros {
 	}
 	
 	/**
-	 * Método que lee los usuarios de un fichero de texto. Lee el nombre que los identifica, así como sus respectivos emails
-	 * con los que podrán enviar y recibir tareas. La sintaxis del archivo a partir del cual se leen se considera correcta.
-	 * Se escribirán los usuarios de la siguiente forma:
+	 * Mï¿½todo que lee los usuarios de un fichero de texto. Lee el nombre que los identifica, asï¿½ como sus respectivos emails
+	 * con los que podrï¿½n enviar y recibir tareas. La sintaxis del archivo a partir del cual se leen se considera correcta.
+	 * Se escribirï¿½n los usuarios de la siguiente forma:
 	 * <blockquote>nombre_usuario: nombre_email@dominio.com</blockquote>
 	 * <br><b><i>EJEMPLO</i></b>
 	 * <blockquote>juan_perez: juan@gmail.com<br>
@@ -146,9 +153,9 @@ public class Acceso_ficheros {
 	}
 	
 	/**
-	 * Método que lee los grupos a partir de un fichero de texto, con la sintaxis detallada en la especificación del proyecto.
-	 * Si se encuentra un usuario cuyo nombre termine en las etiquetas &lt;T&gt; o &lt;I&gt;, los añade al grupo pero no
-	 * añade el grupo en cuestión a la lista de grupos del usuario, en espera de que se acepte la solicitud o la invitación, respectivamente.
+	 * Mï¿½todo que lee los grupos a partir de un fichero de texto, con la sintaxis detallada en la especificaciï¿½n del proyecto.
+	 * Si se encuentra un usuario cuyo nombre termine en las etiquetas &lt;T&gt; o &lt;I&gt;, los aï¿½ade al grupo pero no
+	 * aï¿½ade el grupo en cuestiï¿½n a la lista de grupos del usuario, en espera de que se acepte la solicitud o la invitaciï¿½n, respectivamente.
 	 * @param datos Los datos que se usan en el programa.
 	 * @return Una lista de Grupos de usuario.
 	 * @throws Exception Si no existe el fichero especificado.
@@ -188,9 +195,9 @@ public class Acceso_ficheros {
 	}
 	
 	/**
-	 * Método que permite obtener un objeto Acceso_datos generado a partir de los datos leídos de los ficheros.
-	 * @return Un objeto Acceso_datos con todos los datos que se usarán en el programa.
-	 * @throws Exception Si hay algún error a la hora de leer los ficheros.
+	 * Mï¿½todo que permite obtener un objeto Acceso_datos generado a partir de los datos leï¿½dos de los ficheros.
+	 * @return Un objeto Acceso_datos con todos los datos que se usarï¿½n en el programa.
+	 * @throws Exception Si hay algï¿½n error a la hora de leer los ficheros.
 	 */
 	public Acceso_datos getDatos() throws Exception{
 		LinkedList<Usuario> users = leerUsuarios();
@@ -201,7 +208,7 @@ public class Acceso_ficheros {
 			grupos = leerGrupos(datos);
 		}
 		catch(RuntimeException e){
-			System.err.println("Algún usuario contenido en el fichero de grupos no existe en el fichero de usuarios.");
+			System.err.println("Algï¿½n usuario contenido en el fichero de grupos no existe en el fichero de usuarios.");
 			System.exit(1);
 		}
 		datos.setGrupos(grupos);
@@ -218,17 +225,17 @@ public class Acceso_ficheros {
 		return datos;
 	}
 	
-	//MÉTODOS DE ESCRITURA EN FICHEROS
+	//Mï¿½TODOS DE ESCRITURA EN FICHEROS
 	
 	/**
-	 * Método que escribe una lista de tareas en el archivo especificado por {@link #tareas} siguiendo el convenio explicado en la especificación del proyecto.
+	 * Mï¿½todo que escribe una lista de tareas en el archivo especificado por {@link #tareas} siguiendo el convenio explicado en la especificaciï¿½n del proyecto.
 	 * @param datos Los datos que se usan en el programa.
-	 * @throws Exception Si no se puede almacenar la información en el fichero.
+	 * @throws Exception Si no se puede almacenar la informaciï¿½n en el fichero.
 	 */
 	public void escribirTareas(Acceso_datos datos) throws Exception{
 		File fichero = new File(tareas);
 		if(!fichero.canWrite()){
-			throw new Exception("Error 9: No se pudo almacenar la información en el fichero.");
+			throw new Exception("Error 9: No se pudo almacenar la informaciï¿½n en el fichero.");
 		}
 		PrintWriter salida = new PrintWriter (fichero);
 		
@@ -244,14 +251,14 @@ public class Acceso_ficheros {
 	}
 	
 	/**
-	 * Método que escribe los grupos de usuarios en el archivo especificado por {@link #grupos} siguiendo el convenio que se muestra en la especificación.
+	 * Mï¿½todo que escribe los grupos de usuarios en el archivo especificado por {@link #grupos} siguiendo el convenio que se muestra en la especificaciï¿½n.
 	 * @param datos Los datos que se usan en el programa.
-	 * @throws Exception Si hay algún tipo de error al escribir en el fichero.
+	 * @throws Exception Si hay algï¿½n tipo de error al escribir en el fichero.
 	 */
 	public void escribirGrupos(Acceso_datos datos) throws Exception{
 		File fichero = new File(grupos);
 		if(!fichero.canWrite()){
-			throw new Exception("Error 9: No se pudo almacenar la información en el fichero.");
+			throw new Exception("Error 9: No se pudo almacenar la informaciï¿½n en el fichero.");
 		}
 		PrintWriter salida = new PrintWriter(fichero);
 		
@@ -264,8 +271,8 @@ public class Acceso_ficheros {
 	}
 	
 	/**
-	 * Método que escribe una lista de usuarios en el archivo especificado por {@link #usuarios}.
-	 * El convenio que se sigue está detallado en la descripción de leerUsuarios().
+	 * Mï¿½todo que escribe una lista de usuarios en el archivo especificado por {@link #usuarios}.
+	 * El convenio que se sigue estï¿½ detallado en la descripciï¿½n de leerUsuarios().
 	 * @see #leerUsuarios()
 	 * @param datos Los datos que se usan en el programa.
 	 * @throws Exception
@@ -273,7 +280,7 @@ public class Acceso_ficheros {
 	public void escribirUsuarios(Acceso_datos datos) throws Exception{
 		File fichero = new File(usuarios);
 		if(!fichero.canWrite()){
-			throw new Exception("Error 9: No se pudo almacenar la información en el fichero.");
+			throw new Exception("Error 9: No se pudo almacenar la informaciï¿½n en el fichero.");
 		}
 		PrintWriter salida = new PrintWriter(fichero);
 		
@@ -286,11 +293,11 @@ public class Acceso_ficheros {
 		salida.close();
 	}
 	
-	//MÉTODO DE CAMBIOS
+	//Mï¿½TODO DE CAMBIOS
 	
 	/**
-	 * Método que permite saber si hay cambios entre los datos que se obtienen a partir de los ficheros, y
-	 * los datos que se han usado en la ejecución del programa.
+	 * Mï¿½todo que permite saber si hay cambios entre los datos que se obtienen a partir de los ficheros, y
+	 * los datos que se han usado en la ejecuciï¿½n del programa.
 	 * @param datos Los datos con los que ha trabajado el programa.
 	 * @return true si hay cambios, false si no los hay.
 	 * @throws Exception Si alguno de los ficheros no existe.

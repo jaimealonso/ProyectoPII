@@ -30,10 +30,10 @@ public class Tarea_con_plazo extends Tarea{
 	
 	/**
 	 * Constructor de una tarea con plazo
-	 * @param descripcion Descripción de la tarea.
+	 * @param descripcion DescripciÃ³n de la tarea.
 	 * @param propietario Propietario de la tarea.
-	 * @param ID Identificador numérico de la tarea (<i>Introducir -1 si se desea generar uno nuevo</i>)
-	 * @param pendiente Si la tarea está o no pendiente.
+	 * @param ID Identificador numÃ©rico de la tarea (<i>Introducir -1 si se desea generar uno nuevo</i>)
+	 * @param pendiente Si la tarea estÃ¡ o no pendiente.
 	 * @param dependencias Lista de dependencias de la tarea.
 	 * @param prioridad Prioridad de la tarea.
 	 * @param fecha Fecha de plazo de la tarea.
@@ -44,13 +44,13 @@ public class Tarea_con_plazo extends Tarea{
 		this.fecha = formato.parse(fecha);
 		setTipo("con_plazo");
 		if(pendiente && !isFutura()){
-			throw new Exception("Error 2: La fecha debe ser posterior a la actual.");
+			throw new RuntimeException("Error 2: La fecha debe ser posterior a la actual.");
 		}
 	}
 	
 	/**
 	 * Constructor de una nueva tarea con plazo a partir de una tarea cualquiera.
-	 * @param t Tarea a la que se le añade un plazo.
+	 * @param t Tarea a la que se le aÃ±ade un plazo.
 	 * @param fecha Fecha de plazo de la tarea.
 	 * @throws Exception Si la tarea no es posterior a la fecha actual.
 	 */
@@ -58,10 +58,10 @@ public class Tarea_con_plazo extends Tarea{
 		this(t.getDescripcion(), t.getPropietario(), t.getID(), t.isPendiente(), t.getDependencias(), t.getPrioridad(), fecha);
 	}
 	
-	//MÉTODOS RELACIONADOS CON LA FECHA DE PLAZO
+	//MÃ‰TODOS RELACIONADOS CON LA FECHA DE PLAZO
 	
 	/**
-	 * Método que permite conseguir la fecha de plazo.
+	 * MÃ©todo que permite conseguir la fecha de plazo.
 	 * @return La fecha de plazo de la tarea.
 	 */
 	public Date getFecha(){
@@ -81,7 +81,7 @@ public class Tarea_con_plazo extends Tarea{
 	}
 
 	/**
-	 * Método que devuelve un String que represente la fecha de plazo.
+	 * Mï¿½todo que devuelve un String que represente la fecha de plazo.
 	 * @return Una cadena que represente la fecha de plazo.
 	 */
 	public String toStringFecha() {
@@ -89,7 +89,7 @@ public class Tarea_con_plazo extends Tarea{
 	}
 	
 	/**
-	 * Método que devuelve un String que represente la fecha de plazo de forma compacta.
+	 * Mï¿½todo que devuelve un String que represente la fecha de plazo de forma compacta.
 	 * @return Una cadena que representa la fecha de forma <i>dd/MM/yyyy</i>
 	 */
 	public String toStringFechaCompacta(){
@@ -97,8 +97,8 @@ public class Tarea_con_plazo extends Tarea{
 	}
 	
 	/**
-	 * Método que permite saber los días que quedan para el plazo de la tarea.
-	 * @return El número de días que quedan hasta el plazo.
+	 * Mï¿½todo que permite saber los dï¿½as que quedan para el plazo de la tarea.
+	 * @return El nï¿½mero de dï¿½as que quedan hasta el plazo.
 	 */
 	public int getDias(){
 		Date actual = new Date();
@@ -107,7 +107,7 @@ public class Tarea_con_plazo extends Tarea{
 		return (int)dias;
 	}
 	
-	//MÉTODOS TOSTRING SOBREESCRITOS
+	//Mï¿½TODOS TOSTRING SOBREESCRITOS
 	
 	@Override
 	public String toStringLista() {
@@ -128,7 +128,7 @@ public class Tarea_con_plazo extends Tarea{
 	}
 	
 	/**
-	 * Método que permite determinar si la fecha de la tarea está en el futuro.
+	 * Mï¿½todo que permite determinar si la fecha de la tarea estï¿½ en el futuro.
 	 * @return true si la tarea es futura, false si es pasada.
 	 */
 	private boolean isFutura(){
@@ -137,7 +137,7 @@ public class Tarea_con_plazo extends Tarea{
 
 	@Override
 	/**
-	 * Método equals sobreescrito para la tarea con plazo.
+	 * Mï¿½todo equals sobreescrito para la tarea con plazo.
 	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
